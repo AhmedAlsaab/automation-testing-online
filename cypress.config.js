@@ -1,9 +1,34 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
+const fs = require('fs-extra');
 
 module.exports = defineConfig({
+  defaultCommandTimeout: 70000,
+  responseTimeout: 90000,
+  requestTimeout: 90000,
+  viewportWidth: 1090,
+  viewportHeight: 1020,
+  videoUploadOnPasses: false,
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/results',
+    overwrite: false,
+    html: false,
+    json: true,
+  },
+
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // ideal for logging through terminal, esp on pipeline
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        },
+      });
+
+      const projectEnv = config.env.envForTests || 'test';
+
+      return fs.readJSON(`cypress/config/${projectEnv}-env.json`);
     },
   },
 });
