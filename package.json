@@ -1,0 +1,17 @@
+{
+  "name": "roku-test-project",
+  "version": "1.0.0",
+  "description": "Tests developed for automationtesting.online",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress open"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^13.0.0",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.2.1",
+    "uuid": "^9.0.0"
+  }
+}
