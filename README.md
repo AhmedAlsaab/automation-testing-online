@@ -7,7 +7,7 @@ The docker image used in the `Dockerfile` contains operating system dependencies
 First build the image and give it a name and version: 
 > `docker build -t your-image-name:1.0.0 .`
 
-Then run the image:
+Then run the container:
 > `docker run -it -v "%cd%":/e2e your-image-name:1.0.0`
 
 # Manually
@@ -32,7 +32,7 @@ This would work neatly in the CI as well should you be wanting to run tests on d
 - Test descriptions should not use the words `should` or `if`, the descriptions must clearly state what the test expects. | Example: `it displays a welcome message when the button is clicked` NOT `it should display a welcome message if the button is clicked` - The former approach then makes it far better to understand what is expected when a test fails.
 - Whitespace or a blank line is encouraged between Cypress commands to further improve readability and convey the sequence of actions performed in the test, especially when not using Gherkin.
 - File names should be in all lower case separated by hyphons and function/variable names should follow a camel case naming convention. 
-- `context`
+- Where possible, divide subsections of a particular page by feature or area-of-test using `context`. | Example: `context(contact form)` -> contains tests related to the contact form.
 
 ## Notable Bits of Code
 Whilst most of the code is fairly straightforward, I've introduced a variety of "unnecessary" ways to test or handle certain features on the page solely to demonstrate some of my Cypress knowledge. For example, there was no need to stub one of the responses, etc.
