@@ -1,5 +1,5 @@
 const { defineConfig } = require('cypress');
-const fs = require('fs-extra');
+const fse = require('fs-extra');
 
 module.exports = defineConfig({
   defaultCommandTimeout: 70000,
@@ -28,7 +28,7 @@ module.exports = defineConfig({
 
       const projectEnv = config.env.envForTests || 'test';
 
-      return fs.readJSON(`cypress/config/${projectEnv}-env.json`);
+      return fse.readJSON(`cypress/config/${projectEnv}-env.json`);
     },
   },
 });
