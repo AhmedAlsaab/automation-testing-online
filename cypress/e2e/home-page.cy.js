@@ -160,7 +160,7 @@ describe('automation.online: home-page', () => {
         });
     });
   });
-  // state resets with each test - testIsolation - but can double check elements are empty first in any case
+
   context('contact form section', () => {
     beforeEach(() => {
       cy.get("div[class='row contact']")
