@@ -1,8 +1,10 @@
+import { onlyRunOn } from '../support/helpers';
+
 describe('automation.online: home-page', () => {
   beforeEach(() => cy.visit('/'));
 
   context('home page welcome section', () => {
-    it("can press on the 'Let me hack!' button", () => {
+    onlyRunOn(['stage', 'production'])("can press on the 'Let me hack!' button", () => {
       cy.get('button').contains('Let me hack!').should('exist').and('not.be.disabled');
     });
 
@@ -12,8 +14,24 @@ describe('automation.online: home-page', () => {
       cy.get('button').contains('Let me hack!').click();
 
       cy.contains('Welcome to Restful Booker Platform').should('not.exist');
+    });
+
+    it("displays the 'Restful Booker' page intro again when the cookies are cleared", () => {
+      cy.contains('Welcome to Restful Booker Platform').should('exist');
+
+      cy.get('button').contains('Let me hack!').click();
+
+      cy.contains('Welcome to Restful Booker Platform').should('not.exist');
 
       cy.reload();
+
+      cy.contains('Welcome to Restful Booker Platform').should('not.exist');
+
+      cy.clearCookies();
+
+      cy.reload();
+
+      cy.contains('Welcome to Restful Booker Platform').should('exist');
     });
   });
 
