@@ -142,4 +142,48 @@ describe('automation.online: home-page', () => {
         });
     });
   });
+  // state resets with each test - testIsolation - but can double check elements are empty first in any case
+  context('contact form section', () => {
+    beforeEach(() => {
+      cy.get("div[class='row contact']")
+        .find('form')
+        .then(($form) => cy.wrap($form).as('contactForm'));
+    });
+
+    it('cannot submit a form with empty input fields', () => {
+      cy.intercept({ method: 'POST', pathname: '/message/' }, cy.spy().as('contactRequest'));
+
+      cy.get('@contactForm').within(() => {
+        cy.get('input').each(($input) => {
+          cy.wrap($input).should('be.empty');
+        });
+      });
+
+      cy.get('@contactForm').parent().find('button').contains('Submit').click();
+
+      cy.get('@contactRequest').should('have.been.called');
+
+      cy.get('@contactForm').find("div[class='alert alert-danger']").should('exist');
+    });
+
+    it('lists the expected validation messages in the validation prompt', () => {
+      cy.intercept(
+        { method: 'POST', path: '**/message/' },
+        { statusCode: 400, fixture: 'mock-responses.json' }
+      ).as('mockedContactRequest');
+
+      cy.get('@contactForm').parent().find('button').contains('Submit').click();
+
+      cy.wait('@mockedContactRequest');
+
+      cy.fixture('test-data.json').then(({ contactFormValidationMessages }) => {
+        cy.get('@contactForm')
+          .find("div[class='alert alert-danger']")
+          .find('p')
+          .each(($p, index) => {
+            expect(contactFormValidationMessages[index]).to.eq($p.text());
+          });
+      });
+    });
+  });
 });

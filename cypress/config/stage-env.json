@@ -1,1 +1,7 @@
-{}
+{
+  "baseUrl": "https://automationintesting.online/",
+  "env": {
+    "environment": "stage",
+    "project": "automationtesting.online"
+  }
+}
