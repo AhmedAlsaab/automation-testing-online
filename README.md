@@ -8,12 +8,7 @@ First build the image and give it a name and version:
 > `docker build -t your-image-name:1.0.0 .`
 
 Then run the container:
-> `docker run -it -v "%cd%":/e2e your-image-name:1.0.0`
-
-# Manually
-execute: `npm install` from the root directory.
-
-run: `npm run cypressOpen` to open Cypress in interactive mode or `npm run cypressHeadless` to run in headless mode.
+> `docker run -it -v "%cd%":/your-working-directory-name your-image-name:1.0.0`
 
 # Documentation
 This section details framework design, and discusses tests and functions.
