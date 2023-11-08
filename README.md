@@ -1,5 +1,9 @@
+# About
+A variety of automated tests developed for the automation.online web page.
+
 # Setup
-Clone the directory and then choose whether you want to run the project through a Docker image or directly from your machine.
+Install Docker and clone the repository.
+
 # Docker
 The docker image used in the `Dockerfile` contains operating system dependencies, compatible browsers and Cypress.
 [More about Cypress images here](https://github.com/cypress-io/cypress-docker-images).
@@ -12,6 +16,8 @@ Then run the container (windows):
 
 Mac:
 > `docker run -it -v $(pwd):/your-working-directory-name your-image-name:1.0.0`
+
+The `included` image has a default entrypoint but this is also defined in the Dockerfile itself. 
 
 # Documentation
 This section details framework design, and discusses tests and functions.
